@@ -1,6 +1,9 @@
 import * as moment from 'moment';
 import 'moment/locale/es';
 
+import { Pipe, PipeTransform } from '@angular/core';
+
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
 | Blue Path                                                        |
 |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
@@ -12,3 +15,14 @@ import 'moment/locale/es';
 | tienes que usarla donde proceda. Haciendo                        |
 | 'moment(fecha).fromNow()' obtenemos justo lo que necesitamos.    |
 |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+@Pipe({
+  name: 'publicationPassPipe'
+})
+
+export class PublicationPassPipe implements PipeTransform {
+    
+    transform(value: number): string {
+      return `${moment(value).fromNow()}`; //Le he añadido el dd/mm/yyyy porque me mola más así. ;-)
+    }
+}
