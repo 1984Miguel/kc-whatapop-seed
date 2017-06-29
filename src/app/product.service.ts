@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable,Input } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -7,6 +7,7 @@ import { BackendUri } from './app-settings';
 import { Product } from './product';
 import { ProductFilter } from './product-filter';
 
+
 @Injectable()
 export class ProductService {
 
@@ -14,7 +15,7 @@ export class ProductService {
     private _http: Http,
     @Inject(BackendUri) private _backendUri) { }
 
-  getProducts(filter: ProductFilter = undefined): Observable<Product[]> {
+  getProducts(filter: ProductFilter ): Observable<Product[]> {
 
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
     | Pink Path                                                        |
@@ -28,6 +29,8 @@ export class ProductService {
     |                                                                  |
     |   _sort=publishedDate&_order=DESC                                |
     |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+    let filtro = "_sort=publishedDate&_order=DESC"
 
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
     | Red Path                                                         |
@@ -44,6 +47,18 @@ export class ProductService {
     |   - Búsqueda por categoría:                                      |
     |       category.id=x (siendo x el identificador de la categoría)  |
     |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+     
+     if(filter)
+     {
+       if(filter.category)
+       {
+         filtro="category.id="+filter.category+"&"+filtro;
+       }
+       if(filter.text)
+       {
+         filtro='q='+filter.text+'&'+filtro;
+       }
+     }
 
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
     | Yellow Path                                                      |
@@ -60,8 +75,9 @@ export class ProductService {
     |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     return this._http
-      .get(`${this._backendUri}/products`)
+      .get(`${this._backendUri}/products?`+filtro)
       .map((data: Response): Product[] => Product.fromJsonToList(data.json()));
+  
   }
 
   getProduct(productId: number): Observable<Product> {
