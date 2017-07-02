@@ -58,7 +58,7 @@ export class ProductService {
        {
          filtro='q='+filter.text+'&'+filtro;
        }
-     }
+     
 
     /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
     | Yellow Path                                                      |
@@ -73,6 +73,13 @@ export class ProductService {
     |   - Búsqueda por estado:                                         |
     |       state=x (siendo x el estado)                               |
     |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+      if(filter.state==="sold")
+      {
+        filtro= "state="+filter.text;
+      }
+
+    }// fin if filtro
 
     return this._http
       .get(`${this._backendUri}/products?`+filtro)
@@ -99,5 +106,19 @@ export class ProductService {
       .patch(`${this._backendUri}/products/${productId}`, body)
       .map((data: Response): Product => Product.fromJson(data.json()));
   }
+
+   likeProduct(productId: Boolean): Observable<Product> {
+    const body: any = { 'like': 'true' };
+    return this._http
+      .patch(`${this._backendUri}/products/${productId}`, body)
+      .map((data: Response): Product => Product.fromJson(data.json()));
+  }
+/*
+  setProductAvailable(productId: number): Observable<Product> {
+    const body: any = { 'state': 'selling' };
+    return this._http
+      .patch(`${this._backendUri}/products/${productId}`, body)
+      .map((data: Response): Product => Product.fromJson(data.json()));
+  }*/
 
 }

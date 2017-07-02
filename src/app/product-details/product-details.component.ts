@@ -58,5 +58,6 @@ export class ProductDetailsComponent implements OnDestroy, OnInit {
   goBack(): void {
     window.history.back();
   }
+ 
 
 }

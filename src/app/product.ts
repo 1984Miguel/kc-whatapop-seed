@@ -13,7 +13,8 @@ export class Product {
       +json.publishedDate,
       json.state,
       +json.price,
-      json.photo
+      json.photo,
+      json.like=false
     );
   }
 
@@ -33,5 +34,6 @@ export class Product {
     public publishedDate: number,
     public state: string,
     public price: number,
-    public photo: string) { }
+    public photo: string ,
+    public like:boolean){}
 }

@@ -1,6 +1,15 @@
 <div *ngIf="data">
   <img [src]="data.photo" class="thumbnail" />
 
+  <button
+  class="favorito"
+  (click)="mandarLike(data)"
+  [class.like]="data.like === 'true'"
+  
+  > Favorito
+  
+  </button>
+
   <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
   | Green Path                                                       |
   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|

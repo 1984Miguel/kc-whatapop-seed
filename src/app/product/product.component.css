@@ -1,3 +1,14 @@
 img:hover {
   cursor: pointer;
 }
+/*
+.favorito
+{
+  background-color:grey;
+  
+}*/
+
+.like
+{
+  background-color: gold;
+}

@@ -8,6 +8,8 @@ import { Product } from '../product';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent {
+   
+
 
   @Input() data: Product;
 
@@ -27,5 +29,21 @@ export class ProductComponent {
     mandarProducto(product: Product): void {
       this.clickOnProduct.emit(product);
     }
+
+@Output() clickOnLike = new EventEmitter<Product>();
+mandarLike(product: Product): void{
+    this.clickOnLike.emit(product);
+    if(!product.like)
+    {
+      product.like=true;
+    }
+      else
+    {
+        product.like=false;
+    }
+        console.log(product.like);
+    }
+
+
 
 }

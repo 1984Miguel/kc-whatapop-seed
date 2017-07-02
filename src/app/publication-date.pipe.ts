@@ -23,6 +23,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PublicationPassPipe implements PipeTransform {
     
     transform(value: number): string {
-      return `${moment(value).fromNow()}`; //Le he añadido el dd/mm/yyyy porque me mola más así. ;-)
+      return `${moment(value).fromNow()}`; 
     }
 }
